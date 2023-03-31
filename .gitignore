@@ -12,7 +12,8 @@
 
 **/node_modules
 **/.turbo
-**/yarn-error.log
+**/yarn-error.lo
+**/*.tsbuildinfo
 .pnp.*
 .editorconfig
 .gitattributes

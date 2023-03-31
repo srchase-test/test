@@ -334,6 +334,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@srchase/pkg-a@workspace:packages/pkg-a"
   dependencies:
+    "@srchase/pkg-b": "workspace:^"
+    "@types/node": ^18.15.11
+    rimraf: ^4.4.1
+    tslib: ^2.5.0
+    turbo: ^1.8.8
+    typescript: ^5.0.3
+  languageName: unknown
+  linkType: soft
+
+"@srchase/pkg-b@workspace:^, @srchase/pkg-b@workspace:packages/pkg-b":
+  version: 0.0.0-use.local
+  resolution: "@srchase/pkg-b@workspace:packages/pkg-b"
+  dependencies:
     "@types/node": ^18.15.11
     rimraf: ^4.4.1
     tslib: ^2.5.0

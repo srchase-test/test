@@ -1,14 +1,10 @@
 {
-  "name": "@srchase/pkg-a",
+  "name": "@srchase/pkg-b",
   "version": "1.0.0",
   "packageManager": "yarn@3.5.0",
   "main": "./dist-cjs/index.js",
   "module": "./dist-es/index.js",
   "types": "./dist-types/index.d.ts",
-  "dependencies": {
-    "@srchase/pkg-b": "workspace:^",
-    "tslib": "^2.5.0"
-  },
   "devDependencies": {
     "@types/node": "^18.15.11",
     "rimraf": "^4.4.1",
@@ -21,5 +17,8 @@
     "build:es": "tsc -p tsconfig.es.json",
     "build:types": "tsc -p tsconfig.types.json",
     "clean": "rimraf ./dist-* && rimraf *.tsbuildinfo"
+  },
+  "dependencies": {
+    "tslib": "^2.5.0"
   }
 }

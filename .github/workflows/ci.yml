@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v3
+        # Include full git history needed for `yarn version check`
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        id: node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install and build
+        id: install
+        run: |
+          yarn install
+          yarn build

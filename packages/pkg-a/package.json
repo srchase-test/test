@@ -6,6 +6,7 @@
   "module": "./dist-es/index.js",
   "types": "./dist-types/index.d.ts",
   "dependencies": {
+    "@srchase/pkg-b": "workspace:^",
     "tslib": "^2.5.0"
   },
   "devDependencies": {

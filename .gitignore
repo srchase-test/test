@@ -18,3 +18,4 @@
 .editorconfig
 .gitattributes
 dist-*
+yarn-error.log

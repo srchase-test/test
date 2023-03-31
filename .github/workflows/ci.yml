@@ -13,8 +13,9 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v3
-        # Include full git history needed for `yarn version check`
+        # Include full git history needed for `yarn changeset status`
         with:
+          ref: ${{github.event.pull_request.head.sha}}
           fetch-depth: 0
       - name: Setup Node.js
         id: node
@@ -25,4 +26,4 @@ jobs:
         id: install
         run: |
           yarn install
-          yarn build
+          yarn changeset status --since=origin/main

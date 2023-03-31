@@ -12,7 +12,7 @@
 
 **/node_modules
 **/.turbo
-**/yarn-error.lo
+**/yarn-error.log
 **/*.tsbuildinfo
 .pnp.*
 .editorconfig

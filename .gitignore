@@ -16,3 +16,4 @@
 .pnp.*
 .editorconfig
 .gitattributes
+dist-*

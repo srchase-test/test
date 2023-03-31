@@ -1,22 +1,30 @@
-name: Release
+name: RELEASE
+
+on:
+  workflow_dispatch
 
 jobs:
-  build:
+  release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        id: checkout
-        uses: actions/checkout@v3
-        # Include full git history needed for `yarn version check`
-        with:
-          fetch-depth: 0
-      - name: Setup Node.js
-        id: node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Install and build
-        id: install
-        run: |
-          yarn install
-          
+      - name: Install dependencies
+        run: yarn install
+      - name: Publish to NPM
+        id: changsets
+        uses: changesets/action@v1
+        with:
+          publish: yarn release
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_SCOPED_TOKEN }}
+          NPM_TOKEN: ${{  secrets.NPM_TOKEN }}
+      - name: Success Notification
+        if: steps.changesets.outputs.published == 'true'
+        run: echo 'publish success'
+      - name: Failure Notification
+        if: steps.changesets.outputs.published != 'true'
+        run: echo 'publish failed'

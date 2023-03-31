@@ -3,14 +3,17 @@
     "private": true,
     "scripts": {
         "clean": "turbo run clean --force --parallel",
-        "build": "turbo run build"
+        "build": "turbo run build",
+        "release": "yarn build && yarn changeset publish"
     },
     "workspaces": [
         "packages/*"
     ],
     "packageManager": "yarn@3.5.0",
+    "dependencies": {
+        "@changesets/cli": "^2.26.1"
+    },
     "devDependencies": {
-        "@changesets/cli": "^2.26.1",
         "turbo": "^1.8.8"
     }
 }

@@ -14,17 +14,28 @@ jobs:
           node-version: 18
       - name: Install dependencies
         run: yarn install
-      - name: Publish to NPM
-        id: changsets
-        uses: changesets/action@v1
-        with:
-          publish: yarn release
-        env:
-          GITHUB_TOKEN: ${{ secrets.REPO_SCOPED_TOKEN }}
-          NPM_TOKEN: ${{  secrets.NPM_TOKEN }}
+      - name: Version
+        id: version
+        run: |
+          yarn changeset version
+          echo "porcelain=$(git status --porcelain | wc -l)" >> $GITHUB_OUTPUT
+      - name: Notify 0 packages to publish
+        if: steps.version.outputs.porcelain == '0'
+        run: echo "no packages to publish"
+      - name: Release
+        id: release
+        if: steps.version.outputs.porcelain != '0'
+        run: |
+          git config user.name "Chase Coalwell"
+          git config user.email "782571+srchase@users.noreply.github.com"
+          git add .
+          echo "packages=$(git diff --name-only | grep package.json | wc -l)" >> $GITHUB_OUTPUT
+          git commit -m 'Verison packages'
+          git push
+          yarn changeset publish
       - name: Success Notification
-        if: steps.changesets.outputs.published == 'true'
+        if: steps.release.outputs.published == 'true'
         run: echo 'publish success'
       - name: Failure Notification
-        if: steps.changesets.outputs.published != 'true'
+        if: steps.release.outputs.published != 'true'
         run: echo 'publish failed'

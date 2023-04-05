@@ -40,10 +40,10 @@ jobs:
         run: |
           git config user.name "Chase Coalwell"
           git config user.email "782571+srchase@users.noreply.github.com"
-          git add .
           echo "packages=$(git diff --name-only | grep package.json | wc -l)" >> $GITHUB_OUTPUT
+          git add .
           git commit -m 'Verison packages'
-          exit 1
+          git push
       - name: Release
         id: release
         uses: changesets/action@v1

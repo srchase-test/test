@@ -1,5 +1,13 @@
 # @srchase/pkg-a
 
+## 1.1.7
+
+### Patch Changes
+
+- 1e68f7d: patch again
+- Updated dependencies [1e68f7d]
+  - @srchase/pkg-b@1.1.7
+
 ## 1.1.6
 
 ### Patch Changes

@@ -43,7 +43,7 @@ jobs:
           git add .
           echo "packages=$(git diff --name-only | grep package.json | wc -l)" >> $GITHUB_OUTPUT
           git commit -m 'Verison packages'
-          git push
+          exit 1
       - name: Release
         id: release
         uses: changesets/action@v1

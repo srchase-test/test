@@ -1,5 +1,11 @@
 # @srchase/pkg-b
 
+## 1.1.6
+
+### Patch Changes
+
+- 2681ca2: patch
+
 ## 1.1.5
 
 ### Patch Changes

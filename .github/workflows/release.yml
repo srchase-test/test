@@ -44,22 +44,27 @@ jobs:
           git add .
           git commit -m 'Verison packages'
           git push
+      - name: Fetch NPM token
+        id: token
+        if: steps.commit.outcome == 'success'
+        uses: aws-actions/aws-secretsmanager-get-secrets@v1
+        with:
+          secret-ids:
+            NPM_TOKEN,${{ secrets.SECRET_ID }}
+          parse-json-secrets: true
       - name: Release
         id: release
         uses: changesets/action@v1
-        if: steps.commit.outcome == 'success'
+        if: steps.token.outcome == 'success'
         with:
           publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Success Notification
         if: steps.release.outputs.published == 'true'
         env:
           PACKAGES: ${{ steps.commit.outputs.packages }}
-        run: |
-          echo "$PACKAGES count"
-          aws cloudwatch put-metric-data --namespace SmithyTypeScriptPublish --metric-name NpmPackagePublishCount --value "$PACKAGES"
+        run: aws cloudwatch put-metric-data --namespace SmithyTypeScriptPublish --metric-name NpmPackagePublishCount --value "$PACKAGES"
       - name: Failure Notification
         if: steps.release.outputs.published != 'true' && steps.version.outputs.porcelain != '0'
         run: aws cloudwatch put-metric-data --namespace SmithyTypeScriptPublish --metric-name NpmPackagePublishFailure --value 1

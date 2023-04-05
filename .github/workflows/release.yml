@@ -22,8 +22,8 @@ jobs:
       - name: Notify 0 packages to publish
         if: steps.version.outputs.porcelain == '0'
         run: echo "no packages to publish"
-      - name: Release
-        id: release
+      - name: Commit
+        id: commit
         if: steps.version.outputs.porcelain != '0'
         run: |
           git config user.name "Chase Coalwell"
@@ -32,7 +32,14 @@ jobs:
           echo "packages=$(git diff --name-only | grep package.json | wc -l)" >> $GITHUB_OUTPUT
           git commit -m 'Verison packages'
           git push
-          yarn changeset publish
+      - name: Publish
+        id: publish
+        uses: changesets/action@v1
+        if: steps.commit.outcome == 'success'
+        with:
+          publish: yarn release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Success Notification
         if: steps.release.outputs.published == 'true'
         run: echo 'publish success'

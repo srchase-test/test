@@ -50,7 +50,7 @@ jobs:
         uses: aws-actions/aws-secretsmanager-get-secrets@v1
         with:
           secret-ids:
-            ${{ secrets.SECRET_ID }}
+            NPM_TOKEN,${{ secrets.SECRET_ID }}
       - name: Release
         id: release
         uses: changesets/action@v1

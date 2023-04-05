@@ -54,7 +54,9 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Success Notification
         if: steps.release.outputs.published == 'true'
-        run: echo 'publish success'
+        run: aws cloudwatch put-metric-data --namespace SmithyTypeScriptPublish --metric-name NpmPackagePublishCount --value $PACKAGES
+        env:
+          PACKAGES: ${{ steps.commit.outputs.packages }}
       - name: Failure Notification
         if: steps.release.outputs.published != 'true' && steps.version.outputs.porcelain != '0'
-        run: echo 'publish failed'
+        run: aws cloudwatch put-metric-data --namespace SmithyTypeScriptPublish --metric-name NpmPackagePublishFailure --value 1

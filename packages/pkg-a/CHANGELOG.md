@@ -1,5 +1,13 @@
 # @srchase/pkg-a
 
+## 1.1.2
+
+### Patch Changes
+
+- 997dd53: patch again
+- Updated dependencies [997dd53]
+  - @srchase/pkg-b@1.1.2
+
 ## 1.1.1
 
 ### Patch Changes

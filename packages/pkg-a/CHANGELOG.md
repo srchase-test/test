@@ -1,5 +1,13 @@
 # @srchase/pkg-a
 
+## 1.1.3
+
+### Patch Changes
+
+- 776612e: patch to test echo
+- Updated dependencies [776612e]
+  - @srchase/pkg-b@1.1.3
+
 ## 1.1.2
 
 ### Patch Changes

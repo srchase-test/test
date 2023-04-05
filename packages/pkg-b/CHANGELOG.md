@@ -1,5 +1,11 @@
 # @srchase/pkg-b
 
+## 1.1.3
+
+### Patch Changes
+
+- 776612e: patch to test echo
+
 ## 1.1.2
 
 ### Patch Changes

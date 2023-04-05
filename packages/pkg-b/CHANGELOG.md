@@ -1,5 +1,11 @@
 # @srchase/pkg-b
 
+## 1.1.4
+
+### Patch Changes
+
+- d68fee7: test path
+
 ## 1.1.3
 
 ### Patch Changes

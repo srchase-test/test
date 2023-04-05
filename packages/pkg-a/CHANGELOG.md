@@ -1,5 +1,13 @@
 # @srchase/pkg-a
 
+## 1.1.4
+
+### Patch Changes
+
+- d68fee7: test path
+- Updated dependencies [d68fee7]
+  - @srchase/pkg-b@1.1.4
+
 ## 1.1.3
 
 ### Patch Changes

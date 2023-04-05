@@ -1,5 +1,11 @@
 # @srchase/pkg-b
 
+## 1.1.1
+
+### Patch Changes
+
+- dffb2f4: patch version
+
 ## 1.1.0
 
 ### Minor Changes

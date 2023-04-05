@@ -1,5 +1,13 @@
 # @srchase/pkg-a
 
+## 1.1.1
+
+### Patch Changes
+
+- dffb2f4: patch version
+- Updated dependencies [dffb2f4]
+  - @srchase/pkg-b@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes

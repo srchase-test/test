@@ -1,5 +1,11 @@
 # @srchase/pkg-b
 
+## 1.1.5
+
+### Patch Changes
+
+- 44f67a0: patch
+
 ## 1.1.4
 
 ### Patch Changes

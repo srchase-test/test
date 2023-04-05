@@ -7,6 +7,9 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -32,6 +35,14 @@ jobs:
           echo "packages=$(git diff --name-only | grep package.json | wc -l)" >> $GITHUB_OUTPUT
           git commit -m 'Verison packages'
           git push
+      - name: Configure AWS Credentials
+        id: credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: us-west-2
+          role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
+          role-session-name: SmithyTypeScriptGitHubRelease
+          audience: sts.amazonaws.com
       - name: Release
         id: release
         uses: changesets/action@v1

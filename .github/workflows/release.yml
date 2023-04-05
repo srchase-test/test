@@ -32,10 +32,7 @@ jobs:
           audience: sts.amazonaws.com
       - name: Notify 0 packages to publish
         if: steps.version.outputs.porcelain == '0'
-        env:
-          PACKAGES: ${{steps.version.outputs.porcelain}}
         run: |
-          echo "$PACKAGES count"
           aws cloudwatch put-metric-data --namespace SmithyTypeScriptPublish --metric-name NpmPackagePublishCount --value "$PACKAGES"
       - name: Commit
         id: commit

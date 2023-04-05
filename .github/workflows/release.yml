@@ -22,9 +22,17 @@ jobs:
         run: |
           yarn changeset version
           echo "porcelain=$(git status --porcelain | wc -l)" >> $GITHUB_OUTPUT
+      - name: Configure AWS Credentials
+        id: credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: us-west-2
+          role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
+          role-session-name: SmithyTypeScriptGitHubRelease
+          audience: sts.amazonaws.com
       - name: Notify 0 packages to publish
         if: steps.version.outputs.porcelain == '0'
-        run: echo "no packages to publish"
+        run: aws cloudwatch put-metric-data --namespace SmithyTypeScriptPublish --metric-name NpmPackagePublishCount --value 0
       - name: Commit
         id: commit
         if: steps.version.outputs.porcelain != '0'
@@ -35,14 +43,6 @@ jobs:
           echo "packages=$(git diff --name-only | grep package.json | wc -l)" >> $GITHUB_OUTPUT
           git commit -m 'Verison packages'
           git push
-      - name: Configure AWS Credentials
-        id: credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-region: us-west-2
-          role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
-          role-session-name: SmithyTypeScriptGitHubRelease
-          audience: sts.amazonaws.com
       - name: Release
         id: release
         uses: changesets/action@v1

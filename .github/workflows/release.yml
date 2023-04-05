@@ -45,5 +45,5 @@ jobs:
         if: steps.release.outputs.published == 'true'
         run: echo 'publish success'
       - name: Failure Notification
-        if: steps.release.outputs.published != 'true'
+        if: steps.release.outputs.published != 'true' && steps.version.outputs.porcelain != '0'
         run: echo 'publish failed'

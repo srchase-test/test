@@ -10,7 +10,6 @@ jobs:
     permissions:
       id-token: write
       contents: write
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -44,7 +43,7 @@ jobs:
           echo "packages=$(git diff --name-only | grep package.json | wc -l)" >> $GITHUB_OUTPUT
           git add .
           git commit -m 'Verison packages'
-          git push
+          exit 1
       - name: Fetch NPM token
         id: token
         if: steps.commit.outcome == 'success'
@@ -68,6 +67,6 @@ jobs:
         env:
           PACKAGES: ${{ steps.commit.outputs.packages }}
         run: aws cloudwatch put-metric-data --namespace SmithyTypeScriptPublish --metric-name NpmPackagePublishCount --value "$PACKAGES"
-      - name: Failure Notification
-        if: steps.release.outputs.published != 'true' && steps.version.outputs.porcelain != '0'
+      - name: Failure Nofitication
+        if: ${{ failure() }}
         run: aws cloudwatch put-metric-data --namespace SmithyTypeScriptPublish --metric-name NpmPackagePublishFailure --value 1

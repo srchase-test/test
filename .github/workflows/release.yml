@@ -30,10 +30,6 @@ jobs:
           role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
           role-session-name: SmithyTypeScriptGitHubRelease
           audience: sts.amazonaws.com
-      - name: Notify 0 packages to publish
-        if: steps.version.outputs.porcelain == '0'
-        run: |
-          aws cloudwatch put-metric-data --namespace SmithyTypeScriptPublish --metric-name NpmPackagePublishCount --value 0
       - name: Commit
         id: commit
         if: steps.version.outputs.porcelain != '0'
@@ -42,8 +38,8 @@ jobs:
           git config user.email "782571+srchase@users.noreply.github.com"
           echo "packages=$(git diff --name-only | grep package.json | wc -l)" >> $GITHUB_OUTPUT
           git add .
-          git commit -m 'Verison packages'
-          exit 1
+          git commit -m 'Verison NPM packages'
+          git push
       - name: Fetch NPM token
         id: token
         if: steps.commit.outcome == 'success'
@@ -62,11 +58,6 @@ jobs:
         env:
           NPM_TOKEN: ${{ env.npm_tokne }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Success Notification
-        if: steps.release.outputs.published == 'true'
-        env:
-          PACKAGES: ${{ steps.commit.outputs.packages }}
-        run: aws cloudwatch put-metric-data --namespace SmithyTypeScriptPublish --metric-name NpmPackagePublishCount --value "$PACKAGES"
       - name: Failure Nofitication
         if: ${{ failure() }}
         run: aws cloudwatch put-metric-data --namespace SmithyTypeScriptPublish --metric-name NpmPackagePublishFailure --value 1

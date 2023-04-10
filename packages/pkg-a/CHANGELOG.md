@@ -1,5 +1,13 @@
 # @srchase/pkg-a
 
+## 1.1.8
+
+### Patch Changes
+
+- 1549796: patch test
+- Updated dependencies [1549796]
+  - @srchase/pkg-b@1.1.8
+
 ## 1.1.7
 
 ### Patch Changes

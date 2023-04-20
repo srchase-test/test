@@ -26,4 +26,14 @@ jobs:
         id: install
         run: |
           yarn install
+          echo --- >> .changeset/empty-lib-changeset.md
+          echo '"@srchase/pkg-c": patch' >> .changeset/empty-lib-changeset.md
+          echo --- >> .changeset/empty-lib-changeset.md
+          echo "" >> .changeset/empty-lib-changeset.md
+          echo "empty changeset" >> .changeset/empty-lib-changeset.md
+          cat .changeset/empty-lib-changeset.md
+          git config user.name "Chase Coalwell"
+          git config user.email "782571+srchase@users.noreply.github.com"
+          git add .changeset/empty-lib-changeset.md
+          git commit -m 'throwaway commit'
           yarn changeset status --since=origin/main

@@ -330,7 +330,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@srchase/pkg-a@workspace:packages/pkg-a":
+"@srchase/pkg-a@workspace:^, @srchase/pkg-a@workspace:packages/pkg-a":
   version: 0.0.0-use.local
   resolution: "@srchase/pkg-a@workspace:packages/pkg-a"
   dependencies:
@@ -347,6 +347,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@srchase/pkg-b@workspace:packages/pkg-b"
   dependencies:
+    "@types/node": ^18.15.11
+    rimraf: ^4.4.1
+    tslib: ^2.5.0
+    turbo: ^1.8.8
+    typescript: ^5.0.3
+  languageName: unknown
+  linkType: soft
+
+"@srchase/pkg-c@workspace:libs/pkg-c":
+  version: 0.0.0-use.local
+  resolution: "@srchase/pkg-c@workspace:libs/pkg-c"
+  dependencies:
+    "@srchase/pkg-a": "workspace:^"
     "@types/node": ^18.15.11
     rimraf: ^4.4.1
     tslib: ^2.5.0

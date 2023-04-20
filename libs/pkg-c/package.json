@@ -1,0 +1,25 @@
+{
+  "name": "@srchase/pkg-c",
+  "version": "1.0.0-alpha.3",
+  "packageManager": "yarn@3.5.0",
+  "main": "./dist-cjs/index.js",
+  "module": "./dist-es/index.js",
+  "types": "./dist-types/index.d.ts",
+  "dependencies": {
+    "@srchase/pkg-a": "workspace:^",
+    "tslib": "^2.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "rimraf": "^4.4.1",
+    "turbo": "^1.8.8",
+    "typescript": "^5.0.3"
+  },
+  "scripts": {
+    "build": "yarn build:types && yarn build:cjs && yarn build:es",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:es": "tsc -p tsconfig.es.json",
+    "build:types": "tsc -p tsconfig.types.json",
+    "clean": "rimraf ./dist-* && rimraf *.tsbuildinfo"
+  }
+}

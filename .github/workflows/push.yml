@@ -1,0 +1,23 @@
+name: PUSH
+
+on:
+  workflow_dispatch
+
+jobs:
+  release:
+    name: PUSH
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Commit
+        id: commit
+        run: |
+          git config user.name "Chase Coalwell"
+          git config user.email "782571+srchase@users.noreply.github.com"
+          echo "testing..." >> README.md
+          git add README.md
+          git commit -m "testing"
+          git push
